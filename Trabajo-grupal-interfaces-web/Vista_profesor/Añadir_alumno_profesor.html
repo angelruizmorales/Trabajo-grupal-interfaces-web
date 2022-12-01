@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumno</title>
+    <link rel="stylesheet" href="/css/Añadir_alumno_profesor.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Profesor</div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+          <li><a class="active" href="/Vista_profesor/Inicio_profesor.html">Inicio</a></li>
+          <li><a href="/Vista_profesor/Añadir_alumno_profesor.html">Añadir alumno</a></li>
+          <li><a href="/Vista_profesor/Añadir_empresa_profesor.html">Añadir empresa</a></li>
+          <li><a href="/Vista_profesor/Alumnos_y_actividades.html">Alumnos y actividades</a></li>
+          <li><a href="/Vista_profesor/Info_profesor.html">Info profesor</a></li>
+        </ul>
+      </nav>
+
+    <div class="contenedor">
+
+        <div class="div-formulario">
+            
+            <h2>Bienvenido</h2>
+
+            <form action="#" id="formulario">
+                <label class ="texto" for="Fecha">Nombre</label>
+                <input type="text" id="Nombre" name="Nombre"/>
+
+                <label class ="texto" for="tipo">Apellidos</label>
+                <input type="text" placeholder="Escribir aquí" name="Apellidos" id="Apellidos" required>
+
+                <label class ="texto" for="Horas">Contraseña_de_acceso</label>
+                <input type="number" placeholder="Escribir aquí" name="Contraseña_de_acceso" id="Contraseña_de_acceso" required>
+
+                <label class ="texto" for="Actividad">DNI</label>
+                <input type="text" placeholder="Escribir aquí" name="DNI" id="DNI" required>
+
+                <label class ="texto" for="Observaciones">Fecha nacimiento</label>
+                <input type="date" placeholder="Escribir aquí" name="Fecha_nacimiento" id="Fecha_nacimiento" required>
+
+                <label class ="texto" for="tipo">Email</label>
+                <input type="email" placeholder="Escribir aquí" name="Email" id="Email" required>
+
+                <label class ="texto" for="Observaciones">Teléfono de contacto</label>
+                <input type="number" placeholder="Escribir aquí" name="Telefono_de_contacto" id="Telefono_de_contacto" required>
+
+                <label class ="texto" for="Observaciones">Empresa donde realiza las prácticas</label>
+                <input type="text" placeholder="Escribir aquí" name="Empresa" id="Empresa" required>
+                
+                
+                <label class ="texto" for="Observaciones">Profesor Tutor asignado</label>
+                <input type="text" placeholder="Escribir aquí" name="Profesor" id="Profesor" required>
+
+                <label class ="texto" for="Observaciones">Nº de horas totales para realizar en DUAL/FCT</label>
+                <input type="text" placeholder="Escribir aquí" name="horas" id="horas" required>
+
+
+                <label class ="texto" for="Observaciones">Observaciones</label>
+                <input type="text" placeholder="Escribir aquí" name="Observaciones" id="Observaciones" required>
+
+
+                <button type="submit" id="btnAgregar">Guardar</button>
+            
+            </form>
+        </div>
+
+        <div class="div-listado">
+            <h2>Registro</h2>
+            <div class="div-empleados">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/js/Añadir_alumno_profesor.js"></script>
+</body>
+</html>

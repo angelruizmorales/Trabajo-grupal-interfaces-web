@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa</title>
+    <link rel="stylesheet" href="/css/Añadir_empresa_profesor.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Profesor</div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+          <li><a class="active" href="/Vista_profesor/Inicio_profesor.html">Inicio</a></li>
+          <li><a href="/Vista_profesor/Añadir_alumno_profesor.html">Añadir alumno</a></li>
+          <li><a href="/Vista_profesor/Añadir_empresa_profesor.html">Añadir empresa</a></li>
+          <li><a href="/Vista_profesor/Alumnos_y_actividades.html">Alumnos y actividades</a></li>
+          <li><a href="/Vista_profesor/Info_profesor.html">Info profesor</a></li>
+        </ul>
+      </nav>
+
+    <div class="contenedor">
+
+        <div class="div-formulario">
+            
+            <h2>Bienvenido</h2>
+
+            <form action="#" id="formulario">
+                <label class ="texto" for="Fecha">Nombre de la empresa</label>
+                <input type="text" id="Nombre_de_la_empresa" name="Nombre_de_la_empresa"/>
+
+                <label class ="texto" for="tipo">Telefono</label>
+                <input type="number" placeholder="Escribir aquí" name="Telefono" id="Telefono" required>
+
+                <label class ="texto" for="Horas">Email</label>
+                <input type="email" placeholder="Escribir aquí" name="Email" id="Email" required>
+
+                <label class ="texto" for="Actividad">Responsable</label>
+                <input type="text" placeholder="Escribir aquí nombre del responsable" name="Responsable" id="Responsable" required>
+
+                <label class ="texto" for="Observaciones">Observaciones o incidencias</label>
+                <input type="text" placeholder="Escribir aquí" name="Observaciones_o_incidencias" id="Observaciones_o_incidencias">
+
+                <label class ="texto" for="Observaciones">Asignar una alumno</label>
+                <input type="text" placeholder="Escribir aquí nombre del alumno" name="Asignar" id="Asignar">
+                
+                <button type="submit" id="btnAgregar">Guardar</button>
+            
+            </form>
+        </div>
+
+        <div class="div-listado">
+            <h2>Registro</h2>
+            <div class="div-empleados">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/js/Añadir_empresa_profesor.js"></script>
+</body>
+</html>
