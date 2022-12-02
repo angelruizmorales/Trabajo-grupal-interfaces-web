@@ -1,0 +1,13 @@
+.but{
+    border: none;
+    width: 15%;
+    color: white;
+    font-size: 20px;
+    background:  #1a2537;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.but:hover{
+    background: cadetblue;
+}
