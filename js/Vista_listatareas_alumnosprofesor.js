@@ -1,4 +1,4 @@
-let listaAlumnos =[];
+let listaAlumnosActividades =[];
 const objAlumno = {
     id: '',
     Nombre: '',
@@ -29,58 +29,23 @@ const ObservacionesImput = document.querySelector("#Observaciones");
 const btnguardar = document.querySelector('#btnguardar');
 formulario.addEventListener('submit',validarFormulario);
 window.onload = function rellenoCrud(){
-    objAlumno.id = "1";
-    objAlumno.Nombre = "Pepe";
-    objAlumno.Apellidos = "Pérez";
-    objAlumno.Contraseña_de_acceso = "Alumno1";
-    objAlumno.DNI = "89846745N";
-    objAlumno.Fecha_nacimiento = "2022-06-01";
-    objAlumno.Email = "pepe@gmail.com";
-    objAlumno.Telefono_de_contacto = "809987890";
-    objAlumno.Empresa = "Cesur";
-    objAlumno.Profesor = "Manolo Rodriguez";
-    objAlumno.horas = "200";
-    objAlumno.Observaciones = "Trabajador";
- agregarEmpleado();
- objAlumno.id = "2";
- objAlumno.Nombre = "Pepe";
-    objAlumno.Apellidos = "Pérez";
-    objAlumno.Contraseña_de_acceso = "Alumno1";
-    objAlumno.DNI = "89846745N";
-    objAlumno.Fecha_nacimiento = "2022-06-01";
-    objAlumno.Email = "pepe@gmail.com";
-    objAlumno.Telefono_de_contacto = "809987890";
-    objAlumno.Empresa = "Cesur";
-    objAlumno.Profesor = "Manolo Rodriguez";
-    objAlumno.horas = "200";
-    objAlumno.Observaciones = "Trabajador";
- agregarEmpleado();
-    objAlumno.id = "3";
-    objAlumno.Nombre = "Pepe";
-    objAlumno.Apellidos = "Pérez";
-    objAlumno.Contraseña_de_acceso = "Alumno1";
-    objAlumno.DNI = "89846745N";
-    objAlumno.Fecha_nacimiento = "2022-06-01";
-    objAlumno.Email = "pepe@gmail.com";
-    objAlumno.Telefono_de_contacto = "809987890";
-    objAlumno.Empresa = "Cesur";
-    objAlumno.Profesor = "Manolo Rodriguez";
-    objAlumno.horas = "200";
-    objAlumno.Observaciones = "Trabajador";
- agregarEmpleado();
- objAlumno.id = "4";
- objAlumno.Nombre = "Manolo";
-    objAlumno.Apellidos = "Pérez";
-    objAlumno.Contraseña_de_acceso = "Alumno1";
-    objAlumno.DNI = "89846745N";
-    objAlumno.Fecha_nacimiento = "2022-06-01";
-    objAlumno.Email = "pepe@gmail.com";
-    objAlumno.Telefono_de_contacto = "987987890";
-    objAlumno.Empresa = "Baguetes";
-    objAlumno.Profesor = "Manolo Rodriguez";
-    objAlumno.horas = "400";
-    objAlumno.Observaciones = "Muy buenas baguetes";
- agregarEmpleado();
+    // Leer los datos del local storage y asignarlos a la lista de alumnos
+  const listaAlumnosActividadesJSON = localStorage.getItem("listaAlumnosActividades");
+  if (listaAlumnosActividadesJSON) {
+    listaAlumnosActividades = JSON.parse(listaAlumnosActividadesJSON);
+  }
+
+  // Comprueba si los datos ya se han cargado
+  if (listaAlumnosActividades.length === 0) {
+    fetch("https://63e980c4811db3d7effcba60.mockapi.io/Pablotest/Profesor-Alumno-Actividad")
+      .then((res) => res.json())
+      .then((datos) => {
+        listaAlumnosActividades = datos;
+        mostrarEmpleado();
+      });
+  } else {
+    mostrarEmpleado();
+  }
 };
 function validarFormulario(e) {
     e.preventDefault();
@@ -108,7 +73,7 @@ function validarFormulario(e) {
     }
 }
 function agregarEmpleado(){
-    listaAlumnos.push({... objAlumno});
+    listaAlumnosActividades.push({... objAlumno});
     mostrarEmpleado();
     formulario.reset();
     limpiarObjeto();
@@ -135,12 +100,12 @@ function mostrarEmpleado(){
     var counter="0";
     limpiarHTML();
     const divEmpleados = document.querySelector('.div-empleados');
-    listaAlumnos.forEach( empleado => {
+    listaAlumnosActividades.forEach( empleado => {
         counter++;
  objAlumno.horas
- const {id, Nombre, Apellidos, Contraseña_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
+ const {id, Nombre, Apellidos, Contrasena_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
         const parrafo = document.createElement('p');
-        parrafo.textContent = `${Nombre}  |  ${Apellidos}  |  ${Contraseña_de_acceso}  |  ${DNI}  |  ${Fecha_nacimiento}  |  ${Email}   | ${Telefono_de_contacto}  | ${Empresa}  | ${Profesor}   |   ${horas}   | ${Observaciones} `;
+        parrafo.textContent = `${Nombre}  |  ${Apellidos}  |  ${Contrasena_de_acceso}  |  ${DNI}  |  ${Fecha_nacimiento}  |  ${Email}   | ${Telefono_de_contacto}  | ${Empresa}  | ${Profesor}   |   ${horas}   | ${Observaciones} `;
         parrafo.dataset.id = id;
         const editarBoton = document.createElement('button');
         editarBoton.onclick = () => cargarEmpleado(empleado);
@@ -152,12 +117,15 @@ function mostrarEmpleado(){
         divEmpleados.appendChild(parrafo);
         divEmpleados.appendChild(hr);
     });
+    // Guardar los datos en el local storage
+  const listaAlumnosActividadesJSON = JSON.stringify(listaAlumnosActividades);
+  localStorage.setItem("listaAlumnosActividades", listaAlumnosActividadesJSON);
 }
 function cargarEmpleado(empleado){
-    const {id, Nombre, Apellidos, Contraseña_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
+    const {id, Nombre, Apellidos, Contrasena_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
     NombreImput.value = Nombre;
     ApellidosImput.value = Apellidos;
-    Contraseña_de_accesoImput.value = Contraseña_de_acceso;
+    Contraseña_de_accesoImput.value = Contrasena_de_acceso;
     DNIImput.value = DNI;
     Fecha_nacimientoImput.value = Fecha_nacimiento;
     Email.value = Email;
@@ -173,7 +141,7 @@ function cargarEmpleado(empleado){
 function editarEmpleado(){
  objAlumno.Nombre = NombreImput.value;
  objAlumno.Apellidos = ApellidosImput.value;
- objAlumno.Contraseña_de_acceso = Contraseña_de_accesoImput.value;
+ objAlumno.Contrasena_de_acceso = Contraseña_de_accesoImput.value;
  objAlumno.DNI = DNIImput.value;
  objAlumno.Fecha_nacimiento = Fecha_nacimientoImput.value;
  objAlumno.Email = EmailImput.value;
@@ -182,12 +150,12 @@ function editarEmpleado(){
  objAlumno.Profesor = Profesor.value;
  objAlumno.horas = horas.value;
  objAlumno.Observaciones = Observaciones.value;
-    listaAlumnos.map( empleado => {
+ listaAlumnosActividades.map( empleado => {
         if(empleado.id === objAlumno.id){
             empleado.id = objAlumno.id;
             empleado.Nombre = objAlumno.Nombre;
             empleado.Apellidos = objAlumno.Apellidos;
-            empleado.Contraseña_de_acceso = objAlumno.Contraseña_de_acceso;
+            empleado.Contrasena_de_acceso = objAlumno.Contrasena_de_acceso;
             empleado.DNI = objAlumno.DNI;
             empleado.Fecha_nacimiento = objAlumno.Fecha_nacimiento;
             empleado.Email = objAlumno.Email;
@@ -205,7 +173,7 @@ function editarEmpleado(){
     editando = false;
 }
 function eliminarEmpleado(id){
-    listaAlumnos = listaAlumnos.filter(empleado => empleado.id !== id);
+    listaAlumnosActividades = listaAlumnosActividades.filter(empleado => empleado.id !== id);
     limpiarHTML();
     mostrarEmpleado();
 }

@@ -1,4 +1,4 @@
-let listaAlumnos =[];
+let listaProfesorEmpresa =[];
 const objAlumno = {
     id: '',
     Nombre_de_la_empresa: '',
@@ -6,6 +6,7 @@ const objAlumno = {
     Email: '',
     Responsable: '',
     Observaciones_o_incidencias: '',
+    Asignar: ''
 }
 let editando = false;
 const formulario = document.querySelector('#formulario');
@@ -14,41 +15,27 @@ const TelefonoImput = document.querySelector('#Telefono');
 const EmailImput = document.querySelector('#Email');
 const ResponsableImput = document.querySelector('#Responsable');
 const Observaciones_o_incidenciasImput = document.querySelector('#Observaciones_o_incidencias');
+const AsignarAlumnoImput = document.querySelector('#Asignar');
 const btnguardar = document.querySelector('#btnguardar');
 formulario.addEventListener('submit',validarFormulario);
 window.onload = function rellenoCrud(){
-    objAlumno.id = "1";
-     objAlumno.Nombre_de_la_empresa = "Cesur";
-     objAlumno.Telefono = "900789087";
-     objAlumno.Email = "pedro@gmail.com";
-     objAlumno.Responsable = "Pepe Guzman";
-     objAlumno.Observaciones_o_incidencias = "Nada";
-     objAlumno.Asignar = "Manolo Gonzalez";
-agregarEmpleado();
- objAlumno.id = "2";
- objAlumno.Nombre_de_la_empresa = "Roberto Web";
- objAlumno.Telefono = "300456789";
- objAlumno.Email = "Roberto@gmail.com";
- objAlumno.Responsable = "Roberto Alonso";
- objAlumno.Observaciones_o_incidencias = "Nada";
- objAlumno.Asignar = "Pablo Pérez";
- agregarEmpleado();
-    objAlumno.id = "3";
-    objAlumno.Nombre_de_la_empresa = "Telefónica";
-    objAlumno.Telefono = "300456789";
-    objAlumno.Email = "Telefónica@gmail.com";
-    objAlumno.Responsable = "Francisco Elela";
-    objAlumno.Observaciones_o_incidencias = "Un poco lenta";
-    objAlumno.Asignar = "Benito Camela";
- agregarEmpleado();
- objAlumno.id = "4";
- objAlumno.Nombre_de_la_empresa = "Rodolfo Burguer";
- objAlumno.Telefono = "390456789";
- objAlumno.Email = "Robertito@gmail.com";
- objAlumno.Responsable = "Paco Luis";
- objAlumno.Observaciones_o_incidencias = "Rara";
- objAlumno.Asignar = "Pepe Canalejas";
- agregarEmpleado();
+   // Leer los datos del local storage y asignarlos a la lista de alumnos
+  const listaProfesorAlumnosJSON = localStorage.getItem("listaProfesorEmpresa");
+  if (listaProfesorAlumnosJSON) {
+    listaAlistaProfesorEmpresalumnos = JSON.parse(listaProfesorAlumnosJSON);
+  }
+
+  // Comprueba si los datos ya se han cargado
+  if (listaProfesorEmpresa.length === 0) {
+    fetch("https://63e980c4811db3d7effcba60.mockapi.io/Pablotest/Profesor-Empresa")
+      .then((res) => res.json())
+      .then((datos) => {
+        listaProfesorEmpresa = datos;
+        mostrarEmpleado();
+      });
+  } else {
+    mostrarEmpleado();
+  }
 };
 function validarFormulario(e) {
     e.preventDefault();
@@ -66,11 +53,12 @@ function validarFormulario(e) {
      objAlumno.Email = EmailImput.value;
      objAlumno.Responsable = ResponsableImput.value;
      objAlumno.Observaciones_o_incidencias = Observaciones_o_incidenciasImput.value;
+     objAlumno.Asignar = AsignarAlumnoImput.value;
         agregarEmpleado();
     }
 }
 function agregarEmpleado(){
-    listaAlumnos.push({... objAlumno});
+    listaProfesorEmpresa.push({... objAlumno});
     mostrarEmpleado();
     formulario.reset();
     limpiarObjeto();
@@ -82,16 +70,17 @@ function limpiarObjeto(){
  objAlumno.Email = '';
  objAlumno.Responsable = '';
  objAlumno.Observaciones_o_incidencias = '';
+ objAlumno.Asignar = '';
 }
 function mostrarEmpleado(){
     var counter="0";
     limpiarHTML();
     const divEmpleados = document.querySelector('.div-empleados');
-    listaAlumnos.forEach( empleado => {
+    listaProfesorEmpresa.forEach( empleado => {
         counter++;
-        const {id, Nombre_de_la_empresa, Telefono, Email, Responsable, Observaciones_o_incidencias} = empleado;
+        const {id, Nombre_de_la_empresa, Telefono, Email, Responsable, Observaciones_o_incidencias, Asignar} = empleado;
         const parrafo = document.createElement('p');
-        parrafo.textContent = `${counter}  |  ${Nombre_de_la_empresa}  |  ${Telefono}  |  ${Email}  |  ${Responsable}  |  ${Observaciones_o_incidencias}`;
+        parrafo.textContent = `${counter}  |  ${Nombre_de_la_empresa}  |  ${Telefono}  |  ${Email}  |  ${Responsable}  |  ${Observaciones_o_incidencias}  |  ${Asignar}`;
         parrafo.dataset.id = id;
         const editarBoton = document.createElement('button');
         editarBoton.onclick = () => cargarEmpleado(empleado);
@@ -107,14 +96,18 @@ function mostrarEmpleado(){
         divEmpleados.appendChild(parrafo);
         divEmpleados.appendChild(hr);
     });
+    // Guardar los datos en el local storage
+  const listaProfesorAlumnosJSON = JSON.stringify(listaAlumnos);
+  localStorage.setItem("listaProfesorEmpresa", listaProfesorAlumnosJSON);
 }
 function cargarEmpleado(empleado){
-    const {id, Nombre_de_la_empresa, Telefono, Email, Responsable, Observaciones_o_incidencias} = empleado;
+    const {id, Nombre_de_la_empresa, Telefono, Email, Responsable, Observaciones_o_incidencias, Asignar} = empleado;
     Nombre_de_la_empresaImput.value = Nombre_de_la_empresa;
     TelefonoImput.value = Telefono;
     EmailImput.value = Email;
     ResponsableImput.value = Responsable;
     Observaciones_o_incidenciasImput.value = Observaciones_o_incidencias;
+    AsignarAlumnoImput.value = Asignar;
  objAlumno.id = id;
     formulario.querySelector('button[type="submit"]').textContent = 'Actualizar';
     editando = true;
@@ -125,7 +118,8 @@ function editarEmpleado(){
  objAlumno.Email = EmailImput.value;
  objAlumno.Responsable = ResponsableImput.value;
  objAlumno.Observaciones_o_incidencias = Observaciones_o_incidenciasImput.value;
-    listaAlumnos.map( empleado => {
+ objAlumno.Asignar = AsignarAlumnoImput.value;
+ listaProfesorEmpresa.map( empleado => {
         if(empleado.id === objAlumno.id){
             empleado.id = objAlumno.id;
             empleado.Nombre_de_la_empresa = objAlumno.Nombre_de_la_empresa;
@@ -133,6 +127,7 @@ function editarEmpleado(){
             empleado.Email = objAlumno.Email;
             empleado.Responsable = objAlumno.Responsable;
             empleado.Observaciones_o_incidencias = objAlumno.Observaciones_o_incidencias;
+            empleado.Asignar = objAlumno.Asignar;
         }
     });
     limpiarHTML();
@@ -142,7 +137,7 @@ function editarEmpleado(){
     editando = false;
 }
 function eliminarEmpleado(id){
-    listaAlumnos = listaAlumnos.filter(empleado => empleado.id !== id);
+    listaProfesorEmpresa = listaProfesorEmpresa.filter(empleado => empleado.id !== id);
     limpiarHTML();
     mostrarEmpleado();
 }

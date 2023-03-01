@@ -1,4 +1,4 @@
-let listaAlumnos =[];
+let listaAlumnosProfesor2 =[];
 const objAlumno = {
     id: '',
     fecha: '',
@@ -17,40 +17,23 @@ const observacionesImput = document.querySelector('#observaciones');
 const btnguardar = document.querySelector('#btnguardar');
 formulario.addEventListener('submit',validarFormulario);
 window.onload = function rellenoCrud(){
-    objAlumno.id = "1";
-     objAlumno.fecha = "2022-01-22";
-     objAlumno.tipo = "Dual";
-     objAlumno.horas = "9";
-     objAlumno.actividad = "Java";
-     objAlumno.observaciones = "Bien";
-     listaAlumnos.push({... objAlumno});
-     limpiarObjeto();
- objAlumno.id = "2";
-     objAlumno.fecha = "2021-01-22";
-     objAlumno.tipo = "FCT";
-     objAlumno.horas = "12";
-     objAlumno.actividad = "HTML";
-     objAlumno.observaciones = "Todo perfecto";
-     listaAlumnos.push({... objAlumno});
-     limpiarObjeto();
-    objAlumno.id = "3";
-     objAlumno.fecha = "2022-05-12";
-     objAlumno.tipo = "FCT";
-     objAlumno.horas = "21";
-     objAlumno.actividad = "Javascript";
-     objAlumno.observaciones = "Bien";
-     listaAlumnos.push({... objAlumno});
-     limpiarObjeto();
- objAlumno.id = "4";
-     objAlumno.fecha = "2021-11-22";
-     objAlumno.tipo = "Dual";
-     objAlumno.horas = "32";
-     objAlumno.actividad = "Base de Datos";
-     objAlumno.observaciones = "Nada";
-     listaAlumnos.push({... objAlumno});
-     listaAlumnos.push({... objAlumno});
-     limpiarObjeto();
-     mostrarEmpleado();
+    // Leer los datos del local storage y asignarlos a la lista de alumnos
+    const listaAlumnosProfesor2JSON = localStorage.getItem("listaAlumnosProfesor2");
+    if (listaAlumnosProfesor2JSON) {
+        listaAlumnosProfesor2 = JSON.parse(listaAlumnosProfesor2JSON);
+    }
+  
+    // Comprueba si los datos ya se han cargado
+    if (listaAlumnosProfesor2.length === 0) {
+      fetch("https://63fe79b7571200b7b7cb6cb7.mockapi.io/Alumno-Diario")
+        .then((res) => res.json())
+        .then((datos) => {
+            listaAlumnosProfesor2 = datos;
+          mostrarEmpleado();
+        });
+    } else {
+      mostrarEmpleado();
+    }
 };
 function validarFormulario(e) {
     e.preventDefault();
@@ -72,7 +55,7 @@ function validarFormulario(e) {
     }
 }
 function agregarEmpleado(){
-    listaAlumnos.push({... objAlumno});
+    listaAlumnosProfesor2.push({... objAlumno});
     mostrarEmpleado();
     formulario.reset();
     limpiarObjeto();
@@ -90,7 +73,7 @@ var counter="0";
 var totalHoras=0;
     limpiarHTML();
     const divEmpleados = document.querySelector('.div-empleados');
-    listaAlumnos.forEach( empleado => {
+    listaAlumnosProfesor2.forEach( empleado => {
         counter++;
         const {id, fecha, tipo, horas, actividad, observaciones} = empleado;
         totalHoras+=Number(horas);
@@ -109,13 +92,18 @@ var totalHoras=0;
         divEmpleados.appendChild(parrafo);
         divEmpleados.appendChild(hr);
     });
-    if(counter==listaAlumnos.length){
+     // Guardar los datos en el local storage
+  const listaAlumnosProfesor2JSON = JSON.stringify(listaAlumnosProfesor2);
+  localStorage.setItem("listaAlumnosProfesor2", listaAlumnosProfesor2JSON);
+  
+    if(counter==listaAlumnosProfesor2.length){
         const espaciadoHoras = document.querySelector('.div-horas');
         const linea = document.createElement('p');
         linea.textContent ="El numero total de horas es"+totalHoras;
         espaciadoHoras.removeChild(document.querySelector('p'))
         espaciadoHoras.appendChild(linea);
     }
+
 }
 function cargarEmpleado(empleado){
     const {id, fecha, tipo, horas, actividad, observaciones} = empleado;
@@ -134,7 +122,7 @@ function editarEmpleado(){
  objAlumno.horas = horasImput.value;
  objAlumno.actividad = actividadImput.value;
  objAlumno.observaciones = observacionesImput.value;
-    listaAlumnos.map( empleado => {
+ listaAlumnosProfesor2.map( empleado => {
         if(empleado.id === objAlumno.id){
             empleado.id = objAlumno.id;
             empleado.fecha = objAlumno.fecha;
@@ -151,7 +139,7 @@ function editarEmpleado(){
     editando = false;
 }
 function eliminarEmpleado(id){
-    listaAlumnos = listaAlumnos.filter(empleado => empleado.id !== id);
+    listaAlumnosProfesor2 = listaAlumnosProfesor2.filter(empleado => empleado.id !== id);
     limpiarHTML();
     mostrarEmpleado();
 }
