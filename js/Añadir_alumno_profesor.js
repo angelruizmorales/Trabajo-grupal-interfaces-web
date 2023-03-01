@@ -1,4 +1,4 @@
-let listaAlumnosProfesorProfesor =[];
+let listaAlumnosProfesor =[];
 
 const objAlumno = {
 
@@ -39,16 +39,16 @@ formulario.addEventListener('submit',validarFormulario);
 
  window.onload = function rellenoCrud() {
     // Leer los datos del local storage y asignarlos a la lista de alumnos
-    const listaAlumnosProfesorProfesorJSON = localStorage.getItem("listaAlumnosProfesorProfesor");
-    if (listaAlumnosProfesorProfesorJSON) {
-      listaAlumnosProfesorProfesor = JSON.parse(listaAlumnosProfesorProfesorJSON);
+    const listaAlumnosProfesorJSON = localStorage.getItem("listaAlumnosProfesor");
+    if (listaAlumnosProfesorJSON) {
+      listaAlumnosProfesor = JSON.parse(listaAlumnosProfesorJSON);
     }
     // Comprueba si los datos ya se han cargado
-    if (listaAlumnosProfesorProfesor.length === 0) {
+    if (listaAlumnosProfesor.length === 0) {
       fetch("")
         .then((res) => res.json())
         .then((datos) => {
-          listaAlumnosProfesorProfesor = datos;
+          listaAlumnosProfesor = datos;
           mostrarEmpleado();
         });
     } else {
@@ -96,7 +96,7 @@ function validarFormulario(e) {
 }
 
 function agregarEmpleado(){
-    listaAlumnosProfesorProfesor.push({... objAlumno});
+    listaAlumnosProfesor.push({... objAlumno});
 
     mostrarEmpleado();
 
@@ -129,7 +129,7 @@ function mostrarEmpleado(){
 
     const divEmpleados = document.querySelector('.div-empleados');
 
-    listaAlumnosProfesorProfesor.forEach( empleado => {
+    listaAlumnosProfesor.forEach( empleado => {
         counter++;
  objAlumno.horas
  const {id, Nombre, Apellidos, Contraseña_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
@@ -211,7 +211,7 @@ function editarEmpleado(){
  objAlumno.Observaciones = Observaciones.value;
 
 
-    listaAlumnosProfesorProfesor.map( empleado => {
+    listaAlumnosProfesor.map( empleado => {
         if(empleado.id === objAlumno.id){
             empleado.id = objAlumno.id;
             empleado.Nombre = objAlumno.Nombre;
@@ -243,7 +243,7 @@ function editarEmpleado(){
 }
 
 function eliminarEmpleado(id){
-    listaAlumnosProfesorProfesor = listaAlumnosProfesorProfesor.filter(empleado => empleado.id !== id);
+    listaAlumnosProfesor = listaAlumnosProfesor.filter(empleado => empleado.id !== id);
     limpiarHTML();
     mostrarEmpleado();
     
