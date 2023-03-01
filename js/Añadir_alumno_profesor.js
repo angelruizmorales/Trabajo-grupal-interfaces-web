@@ -45,7 +45,7 @@ formulario.addEventListener('submit',validarFormulario);
     }
     // Comprueba si los datos ya se han cargado
     if (listaAlumnosProfesor.length === 0) {
-      fetch("")
+      fetch("https://63fe79b7571200b7b7cb6cb7.mockapi.io/Alumno-Profesor")
         .then((res) => res.json())
         .then((datos) => {
           listaAlumnosProfesor = datos;
@@ -110,7 +110,7 @@ function limpiarObjeto(){
  objAlumno.id = '';
  objAlumno.Nombre = '';
  objAlumno.Apellidos = '';
- objAlumno.Contraseña_de_acceso = '';
+ objAlumno.Contrasena_de_acceso = '';
  objAlumno.DNI = '';
  objAlumno.Fecha_nacimiento = '';
  objAlumno.Email = '';
@@ -132,10 +132,10 @@ function mostrarEmpleado(){
     listaAlumnosProfesor.forEach( empleado => {
         counter++;
  objAlumno.horas
- const {id, Nombre, Apellidos, Contraseña_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
+ const {id, Nombre, Apellidos, Contrasena_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
 
         const parrafo = document.createElement('p');
-        parrafo.textContent = `${Nombre}  |  ${Apellidos}  |  ${Contraseña_de_acceso}  |  ${DNI}  |  ${Fecha_nacimiento}  |  ${Email}   | ${Telefono_de_contacto}  | ${Empresa}  | ${Profesor}   |   ${horas}   | ${Observaciones} `;
+        parrafo.textContent = `${Nombre}  |  ${Apellidos}  |  ${Contrasena_de_acceso}  |  ${DNI}  |  ${Fecha_nacimiento}  |  ${Email}   | ${Telefono_de_contacto}  | ${Empresa}  | ${Profesor}   |   ${horas}   | ${Observaciones} `;
         parrafo.dataset.id = id;
 
         
@@ -175,19 +175,19 @@ function mostrarEmpleado(){
 
 
 function cargarEmpleado(empleado){
-    const {id, Nombre, Apellidos, Contraseña_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
+    const {id, Nombre, Apellidos, Contrasena_de_acceso, DNI, Fecha_nacimiento, Email, Telefono_de_contacto, Empresa, Profesor, horas, Observaciones} = empleado;
 
     NombreImput.value = Nombre;
     ApellidosImput.value = Apellidos;
-    Contraseña_de_accesoImput.value = Contraseña_de_acceso;
+    Contraseña_de_accesoImput.value = Contrasena_de_acceso;
     DNIImput.value = DNI;
     Fecha_nacimientoImput.value = Fecha_nacimiento;
-    Email.value = Email;
-    Telefono_de_contacto.value = Telefono_de_contacto;
-    Empresa.value = Empresa;   
-    Profesor.value = Profesor;
-    horas.value = horas;
-    Observaciones.value = Observaciones;
+    EmailImput.value = Email;
+    Telefono_de_contactoImput.value = Telefono_de_contacto;
+    EmpresaImput.value = Empresa;   
+    ProfesorImput.value = Profesor;
+    horasImput.value = horas;
+    ObservacionesImput.value = Observaciones;
 
  objAlumno.id = id;
 
@@ -200,15 +200,15 @@ function cargarEmpleado(empleado){
 function editarEmpleado(){
  objAlumno.Nombre = NombreImput.value;
  objAlumno.Apellidos = ApellidosImput.value;
- objAlumno.Contraseña_de_acceso = Contraseña_de_accesoImput.value;
+ objAlumno.Contrasena_de_acceso = Contraseña_de_accesoImput.value;
  objAlumno.DNI = DNIImput.value;
  objAlumno.Fecha_nacimiento = Fecha_nacimientoImput.value;
  objAlumno.Email = EmailImput.value;
- objAlumno.Telefono_de_contacto = Telefono_de_contacto.value;
- objAlumno.Empresa = Empresa.value;
- objAlumno.Profesor = Profesor.value;
- objAlumno.horas = horas.value;
- objAlumno.Observaciones = Observaciones.value;
+ objAlumno.Telefono_de_contacto = Telefono_de_contactoImput.value;
+ objAlumno.Empresa = EmpresaImput.value;
+ objAlumno.Profesor = ProfesorImput.value;
+ objAlumno.horas = horasImput.value;
+ objAlumno.Observaciones = ObservacionesImput.value;
 
 
     listaAlumnosProfesor.map( empleado => {
@@ -216,7 +216,7 @@ function editarEmpleado(){
             empleado.id = objAlumno.id;
             empleado.Nombre = objAlumno.Nombre;
             empleado.Apellidos = objAlumno.Apellidos;
-            empleado.Contraseña_de_acceso = objAlumno.Contraseña_de_acceso;
+            empleado.Contrasena_de_acceso = objAlumno.Contrasena_de_acceso;
             empleado.DNI = objAlumno.DNI;
             empleado.Fecha_nacimiento = objAlumno.Fecha_nacimiento;
             empleado.Email = objAlumno.Email;
